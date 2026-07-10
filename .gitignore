@@ -1,3 +1,18 @@
+# Environnement Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# Base vectorielle (générée localement via python src/indexing.py, non versionnée)
+data/chroma_db/
+
+# OS / éditeur
+.DS_Store
+.vscode/<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -217,3 +232,20 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 data/chroma_db/ 
+=======
+# Environnement Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# Base vectorielle (générée localement via python src/indexing.py, non versionnée)
+data/chroma_db/
+
+# OS / éditeur
+.DS_Store
+.vscode/
+>>>>>>> feature/projet-complet

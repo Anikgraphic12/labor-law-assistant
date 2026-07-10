@@ -3,8 +3,56 @@
     "id": "L3141-3",
     "article": "L3141-3",
     "theme": "Congés payés",
-    "titre": "Durée légale du congé",
-    "texte": "Le salarié a droit à un congé de deux jours et demi ouvrables par mois de travail effectif...",
-    "source": "Code du travail"
+    "titre": "Durée légale du congé annuel",
+    "texte": "Le salarié a droit à un congé de deux jours et demi ouvrables par mois de travail effectif chez le même employeur. La durée totale du congé exigible ne peut excéder trente jours ouvrables.",
+    "source": "Code du travail, Légifrance"
+  },
+  {
+    "id": "L3141-1",
+    "article": "L3141-1",
+    "theme": "Congés payés",
+    "titre": "Principe du droit au congé payé",
+    "texte": "Tout salarié a droit chaque année à un congé payé à la charge de l'employeur.",
+    "source": "Code du travail, Légifrance"
+  },
+  {
+    "id": "L1237-11",
+    "article": "L1237-11",
+    "theme": "Rupture conventionnelle",
+    "titre": "Principe de la rupture conventionnelle",
+    "texte": "L'employeur et le salarié peuvent convenir en commun des conditions de la rupture du contrat de travail qui les lie. La rupture conventionnelle, exclusive du licenciement ou de la démission, ne peut être imposée par l'une ou l'autre des parties. Elle résulte d'une convention signée par les parties au contrat. Elle est soumise aux dispositions de la présente section destinées à garantir la liberté du consentement des parties.",
+    "source": "Code du travail, Légifrance"
+  },
+  {
+    "id": "L1237-13",
+    "article": "L1237-13",
+    "theme": "Rupture conventionnelle",
+    "titre": "Indemnité, date de rupture et droit de rétractation",
+    "texte": "La convention de rupture définit les conditions de celle-ci, notamment le montant de l'indemnité spécifique de rupture conventionnelle qui ne peut pas être inférieur à celui de l'indemnité prévue à l'article L. 1234-9. Elle fixe la date de rupture du contrat de travail, qui ne peut intervenir avant le lendemain du jour de l'homologation. A compter de la date de sa signature par les deux parties, chacune d'entre elles dispose d'un délai de quinze jours calendaires pour exercer son droit de rétractation.",
+    "source": "Code du travail, Légifrance"
+  },
+  {
+    "id": "L3231-2",
+    "article": "L3231-2",
+    "theme": "Salaire minimum (SMIC)",
+    "titre": "Finalité du salaire minimum de croissance",
+    "texte": "Le salaire minimum de croissance assure aux salariés dont les rémunérations sont les plus faibles la garantie de leur pouvoir d'achat et une participation au développement économique de la nation.",
+    "source": "Code du travail, Légifrance"
+  },
+  {
+    "id": "L1232-6",
+    "article": "L1232-6",
+    "theme": "Licenciement",
+    "titre": "Notification du licenciement pour motif personnel",
+    "texte": "Lorsque l'employeur décide de licencier un salarié, il lui notifie sa décision par lettre recommandée avec avis de réception. Cette lettre comporte l'énoncé du ou des motifs invoqués par l'employeur. Elle ne peut être expédiée moins de deux jours ouvrables après la date prévue de l'entretien préalable au licenciement auquel le salarié a été convoqué.",
+    "source": "Code du travail, Légifrance"
+  },
+  {
+    "id": "L1232-1",
+    "article": "L1232-1",
+    "theme": "Licenciement",
+    "titre": "Exigence d'une cause réelle et sérieuse",
+    "texte": "Tout licenciement pour motif personnel est motivé dans les conditions définies par le présent chapitre. Il est justifié par une cause réelle et sérieuse.",
+    "source": "Code du travail, Légifrance"
   }
 ]

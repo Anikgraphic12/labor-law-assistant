@@ -4,6 +4,7 @@ Assistant en ligne de commande qui répond à des questions de droit du travail
 français en citant systématiquement les articles du Code du travail sur
 lesquels il s'appuie, sans utiliser LangChain ni LlamaIndex.
 
+<<<<<<< HEAD
 ## Architecture du pipeline# labor_law_assistant
 
 Question utilisateur
@@ -22,6 +23,31 @@ corpus.json    # Corpus source (Option C, saisi manuellement)
 chroma_db/     # Base vectorielle persistée (non versionnée, régénérée localement)
 tests/
 retrieval_eval.py  # Jalon 3 : validation du retrieval sur des questions test
+=======
+## Architecture du pipeline
+
+```
+Question utilisateur
+   -> Recherche vectorielle (ChromaDB, embeddings multilingues)
+   -> Récupération des chunks les plus proches (top-k)
+   -> Génération de la réponse (Groq, température basse) avec citations obligatoires
+   -> Ajout de l'avertissement juridique par le code (pas seulement demandé au LLM)
+```
+
+## Structure du dépôt
+
+```
+src/
+  indexing.py    # Jalon 2 : chunking par article, embeddings, ChromaDB, persistance
+  generation.py  # Jalon 4 : prompt système, appel Groq, citations, disclaimer
+  cli.py         # Jalon 5 : boucle interactive
+data/
+  corpus.json    # Corpus source (Option C, saisi manuellement)
+  chroma_db/     # Base vectorielle persistée (non versionnée, régénérée localement)
+tests/
+  retrieval_eval.py  # Jalon 3 : validation du retrieval sur des questions test
+```
+>>>>>>> feature/projet-complet
 
 ## Installation
 
@@ -125,7 +151,9 @@ renvoie vers un professionnel (avocat, inspection du travail).
 
 ## Limites connues / à compléter
 
-- Corpus réduit (Option C, quelques articles) : à étendre à au moins 5 thèmes.
+- Corpus réduit (Option C, 2 articles actuellement) : à étendre à au moins
+  5 thèmes.
+ feature/projet-complet
 - Un seul cas de test dans `tests/retrieval_eval.py` : à enrichir avec
   5 questions couvrant chaque thème avant la soutenance.
 - Pas encore de score de confiance ni de mécanisme de refus explicite hors
@@ -139,8 +167,11 @@ renvoie vers un professionnel (avocat, inspection du travail).
 - Ajouter un score de confiance (distance renvoyée par ChromaDB) pour
   détecter et refuser les questions hors corpus sans appeler le LLM.
 - Enrichir le jeu de test du retrieval avec une question par thème couvert.
+ HEAD
 
 Une fois collé et sauvegardé :
 git add README.md
 git commit -m "Redaction du README : architecture, installation, questions de reflexion"
 git push
+
+ feature/projet-complet

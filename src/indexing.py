@@ -18,7 +18,6 @@ def build_index():
     model = SentenceTransformer(MODEL_NAME)
     client = chromadb.PersistentClient(path=DB_PATH)
 
-    # Recree la collection pour eviter les doublons si on relance
     try:
         client.delete_collection(COLLECTION_NAME)
     except Exception:
@@ -47,7 +46,6 @@ def build_index():
 
 
 def get_collection():
-    """Utilise par retrieval.py / cli.py pour se connecter sans reindexer."""
     client = chromadb.PersistentClient(path=DB_PATH)
     return client.get_collection(COLLECTION_NAME)
 
