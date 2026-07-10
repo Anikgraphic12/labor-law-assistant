@@ -17,7 +17,13 @@ DATA_DIR = BASE_DIR / "data" / "code_travail"
 
 # Fichiers de données
 ARTICLES_FILE = DATA_DIR / "code_travail_articles_vigueur.json"
+CORPUS_FILE = ARTICLES_FILE
 CHUNKS_FILE = DATA_DIR / "code_travail_chunks_vigueur.json"
+# Base vectorielle Chroma
+CHROMA_DIR = BASE_DIR / "data" / "chroma_db"
+
+# Modèle d'embeddings
+EMBEDDING_MODEL = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
 # LLM - GROQ (par défaut)
 LLM_PROVIDER = os.getenv("LLM_PROVIDER", "groq")

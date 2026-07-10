@@ -1,199 +1,90 @@
-# labor_law_assistant
-Assistant Code du Travail - RAG
+Assistant Code du Travail — RAG
 Description du projet
 
-Ce projet consiste à développer un assistant juridique basé sur une architecture Retrieval-Augmented Generation (RAG) permettant de répondre à des questions concernant le Code du travail français.
+Ce projet consiste à développer un assistant juridique basé sur une architecture RAG (Retrieval Augmented Generation) permettant de répondre aux questions relatives au Code du travail français.
 
 L'objectif est de combiner :
 
-une base documentaire issue du Code du travail ;
-un moteur de recherche sémantique basé sur des embeddings ;
-un modèle de langage (LLM) capable de générer des réponses contextualisées.
-
-L'assistant recherche d'abord les articles pertinents dans le corpus juridique, puis utilise ces informations pour produire une réponse accompagnée d'un avertissement juridique.
-
-⚠️ Cet assistant ne constitue pas un conseil juridique. Les réponses générées doivent être vérifiées avec les sources officielles ou auprès d'un professionnel du droit.
-
+une base documentaire juridique issue de la base LEGI disponible sur data.gouv.fr ;
+une recherche vectorielle permettant de retrouver les articles pertinents ;
+un modèle de langage capable de générer une réponse contextualisée.
 Architecture du projet
 
-Le pipeline RAG fonctionne selon les étapes suivantes :
+Le pipeline fonctionne selon les étapes suivantes :
 
-Base LEGI (data.gouv.fr)
-          |
-          v
-Extraction des articles du Code du travail
-          |
-          v
-Corpus JSON
-          |
-          v
-Découpage en chunks
-          |
-          v
-Création des embeddings
-          |
-          v
-Base vectorielle ChromaDB
-          |
-          v
-Recherche des articles pertinents
-          |
-          v
-Génération de réponse par le LLM
-Source des données
+Extraction du corpus juridique
+Téléchargement de la base LEGI depuis data.gouv.fr.
+Extraction des articles du Code du travail au format XML avec des fichiers python
+Transformation en corpus exploitable.
+Préparation des documents
+Chaque article de loi correspond à une unité documentaire.
+Conservation du numéro d'article afin de garantir la traçabilité juridique.
+Indexation vectorielle
+Génération des embeddings avec un modèle sentence-transformers.
+Stockage dans une base vectorielle ChromaDB persistante.
+Retrieval + génération
+Recherche des articles pertinents selon la question utilisateur.
+Injection du contexte retrouvé dans le prompt du LLM.
+Génération d'une réponse accompagnée d'un avertissement juridique.
+Structure des données
 
-La première approche utilisant l'API Légifrance n'a pas pu être finalisée en raison de problèmes d'autorisation d'accès.
+Le corpus utilisé par le système est :
 
-Nous avons donc utilisé la base LEGI disponible sur data.gouv.fr.
-
-Le traitement réalisé :
-
-Téléchargement de l'archive LEGI.
-Décompression de la base XML.
-Exploration de l'arborescence juridique.
-Extraction des articles du Code du travail.
-Transformation du contenu en corpus exploitable par le moteur RAG.
-
-Le corpus actuel contient 36 articles du Code du travail.
-
-Une extraction complète du Code du travail (environ 7000 articles) permettrait d'améliorer la couverture documentaire et la qualité du retrieval.
-
-Technologies utilisées
-Backend et traitement des données
-Python
-JSON
-XML parsing
-Sentence Transformers
-ChromaDB
-Intelligence artificielle
-Modèle d'embeddings :
-paraphrase-multilingual-MiniLM-L12-v2
-Modèle de génération :
-LLM via API
-Gestion du projet
-Git / GitHub
-Environnement virtuel Python
-Structure du dépôt
-labor-law-assistant/
-
+data/
+├── code_travail/
+│   └── code_travail_articles_vigueur.json
 │
-├── app.py                    # Point d'entrée de l'application
-├── requirements.txt          # Dépendances Python
-├── README.md
-│
-├── src/
-│   ├── config.py             # Configuration du projet
-│   ├── corpus_loader.py      # Chargement du corpus juridique
-│   ├── chunker.py            # Découpage des documents
-│   ├── embedder.py           # Création des embeddings
-│   ├── rag_engine.py         # Moteur de recherche RAG
-│   ├── llm_client.py         # Client LLM
-│   └── chatbot.py            # Gestion du chatbot
-│
-├── data/
-│   ├── corpus.json           # Corpus extrait du Code du travail
-│   └── chroma_db/            # Base vectorielle persistée
-│
-├── tests/
-│   └── test_retrieval.py     # Tests du moteur de recherche
-│
-└── rapport/
-    └── compte_rendu.md       # Rapport du projet
+└── chroma_db/
+    └── Base vectorielle ChromaDB persistée
+
+Le fichier code_travail_articles_vigueur.json contient les articles du Code du travail extraits depuis la base LEGI.
+
+La base chroma_db contient les embeddings déjà générés afin d'éviter une réindexation complète au premier lancement.
+
 Installation
-1. Cloner le projet
-git clone https://github.com/Anikgraphic12/labor-law-assistant.git
 
-cd labor-law-assistant
-2. Créer un environnement virtuel
+Créer un environnement virtuel :
+
 python -m venv .venv
 
-Activation :
+Activer l'environnement :
 
-Windows
+Windows :
+
 .venv\Scripts\activate
-3. Installer les dépendances
-pip install -r requirements.txt
-4. Configuration des variables d'environnement
 
-Créer un fichier .env à partir du modèle :
+Installer les dépendances :
+
+pip install -r requirements.txt
+Configuration
+
+Créer un fichier .env à partir de :
 
 .env.example
 
-Puis renseigner les clés nécessaires :
+Puis renseigner les variables nécessaires :
 
 GROQ_API_KEY=votre_cle_api
-Lancement de l'application
+Lancement du projet
 
-Depuis la racine du projet :
+Lancer l'application :
 
 python app.py
+Tests
 
-L'application charge la base vectorielle existante et permet d'interroger le chatbot.
+Tester le moteur de recherche :
 
-Fonctionnement du Retrieval
-
-Le système utilise deux méthodes complémentaires :
-
-Recherche par numéro d'article
-
-Une détection par expression régulière permet d'identifier directement les demandes contenant un numéro d'article.
-
-Exemple :
-
-Que dit l'article L3121-27 ?
-
-L'article correspondant est récupéré directement.
-
-Recherche sémantique
-
-Pour les questions générales, les embeddings permettent de retrouver les articles juridiquement proches du sujet demandé.
-
-Exemple :
-
-Quelle est la durée légale du travail ?
-
-Le moteur recherche les articles associés au temps de travail.
-
-Choix de conception
-1 article = 1 chunk
-
-Chaque article du Code du travail constitue une unité documentaire indépendante.
-
-Ce choix permet :
-
-une meilleure traçabilité juridique ;
-la conservation du numéro d'article ;
-une réponse plus facilement vérifiable.
-Persistance de ChromaDB
-
-La base vectorielle est sauvegardée localement afin d'éviter une réindexation complète à chaque lancement.
-
-Disclaimer juridique automatique
-
-Un avertissement juridique est ajouté automatiquement aux réponses afin de limiter les risques liés à l'interprétation automatique du droit.
-
+python test_search.py
 Limites actuelles
-Corpus limité à 36 articles.
-Recherche perfectible avec une base documentaire réduite.
-Nécessité d'intégrer l'ensemble du Code du travail pour obtenir une couverture complète.
-Les réponses du LLM restent soumises aux limites des modèles génératifs.
-Améliorations possibles
 
-Avec davantage de temps, plusieurs évolutions seraient possibles :
+Le corpus extrait contient actuellement un nombre limité d'articles du Code du travail.
 
-Extraction complète du Code du travail.
-Recherche hybride avancée (BM25 + embeddings).
-Reranking des documents récupérés.
-Ajout des conventions collectives.
-Interface utilisateur web.
-Évaluation automatique de la qualité des réponses.
-Équipe projet
+Une extraction complète des articles permettrait :
 
-Projet réalisé dans le cadre d'un module Data & IA.
+d'améliorer la couverture documentaire ;
+d'augmenter la pertinence des résultats ;
+de réduire les risques d'absence de contexte.
+Avertissement
 
-Architecture basée sur les principes de :
-
-NLP ;
-recherche vectorielle ;
-modèles de langage ;
-systèmes RAG.
+Cet assistant fournit une aide à la recherche juridique et ne constitue pas un avis juridique professionnel.
+Les réponses doivent être vérifiées avec les textes officiels en vigueur.
