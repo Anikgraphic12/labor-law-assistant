@@ -1,0 +1,15 @@
+# Environnement Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# Base vectorielle (générée localement via python src/indexing.py, non versionnée)
+data/chroma_db/
+
+# OS / éditeur
+.DS_Store
+.vscode/
