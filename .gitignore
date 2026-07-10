@@ -216,3 +216,19 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+__pycache__/
+*.pyc
+.env
+.venv/
+# Données brutes LEGI
+data/LEGI_*.tar.gz
+data/data/
+
+# Fichiers intermédiaires d'extraction
+data/code_travail/code_travail_articles_complet.json
+data/code_travail/code_travail_chunks_complet.json
+data/code_travail/code_travail_chunks_vigueur.json
+
+# Mauvais ancien corpus
+data/corpus.json
